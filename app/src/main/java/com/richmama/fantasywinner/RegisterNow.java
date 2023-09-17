@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.health.connect.datatypes.StepsCadenceRecord;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,39 +19,38 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity {
-    final String TAG = "LoginActiviry";
-    TextView registernow;
-    EditText emailLogin;
-    EditText passLogin;
-    CircularProgressButton buttonLogin;
+public class RegisterNow extends AppCompatActivity {
+    String TAG = "Registernow";
+    TextView haveAccount;
+    EditText emailReg;
+    EditText passReg;
+    CircularProgressButton buttonRegister;
     FirebaseAuth mAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register_now);
 
-        registernow = findViewById(R.id.textview_registerNow);
-        buttonLogin = findViewById(R.id.cirLoginButton);
-        emailLogin = findViewById(R.id.editTextEmail);
-        passLogin = findViewById(R.id.editTextPassword);
+        haveAccount = findViewById(R.id.textview_haveaccout);
+        buttonRegister = findViewById(R.id.cirLoginReg);
+        emailReg = findViewById(R.id.editTextEmail_reg);
+        passReg = findViewById(R.id.editTextPassword_reg);
         mAuth = FirebaseAuth.getInstance();
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
+        buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginNow();
+                registerNow();
             }
         });
-        registernow.setOnClickListener(new View.OnClickListener() {
+
+        haveAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, RegisterNow.class);
+                Intent intent = new Intent(RegisterNow.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
-
     }
 
     @Override
@@ -61,15 +59,15 @@ public class LoginActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            Intent intent = new Intent(RegisterNow.this,MainActivity.class);
             startActivity(intent);
             finish();
         }
     }
 
-    private void loginNow(){
-        String email = String.valueOf(emailLogin.getText());
-        String pass = String.valueOf(passLogin.getText() );
+    private void registerNow(){
+        String email = String.valueOf(emailReg.getText());
+        String pass = String.valueOf(passReg.getText() );
 
         if(TextUtils.isEmpty(email)){
             Toast.makeText(getApplicationContext(),"Please Enter a Email",Toast.LENGTH_SHORT).show();
@@ -79,28 +77,28 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Please Enter Password",Toast.LENGTH_SHORT).show();
             return;
         }
-        buttonLogin.startAnimation();
-        mAuth.signInWithEmailAndPassword(email, pass
-                )
+
+        mAuth.createUserWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success");
-
-                            buttonLogin.revertAnimation();
-                            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                            Log.d(TAG, "createUserWithEmail:success");
+                            Toast.makeText(RegisterNow.this, "Registration Success .", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(RegisterNow.this,MainActivity.class);
                             startActivity(intent);
                             finish();
+
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            buttonLogin.revertAnimation();
-                            Toast.makeText(LoginActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(RegisterNow.this, "Registration failed.", Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 });
+
+
+
 
     }
 

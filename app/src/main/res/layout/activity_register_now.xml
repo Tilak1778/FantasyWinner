@@ -33,12 +33,11 @@
 
                 <TextView
                     style="@style/viewParent.headerText.NoMode"
-                    android:gravity="center_horizontal"
                     android:layout_marginLeft="41dp"
                     android:layout_marginEnd="39dp"
-                    android:text="Login"
-                    android:textColor="@color/primaryTextColor"
-                    />
+                    android:gravity="center_horizontal"
+                    android:text="Create Account"
+                    android:textColor="@color/primaryTextColor" />
 
             </RelativeLayout>
 
@@ -48,7 +47,7 @@
                 android:layout_marginTop="@dimen/loginViewsMargin">
 
                 <EditText
-                    android:id="@+id/editTextEmail"
+                    android:id="@+id/editTextEmail_reg"
                     style="@style/modifiedEditText"
                     android:hint="@string/login_email_hint"
                     android:inputType="textEmailAddress"
@@ -61,20 +60,13 @@
                 android:layout_marginTop="@dimen/loginViewsMargin">
 
                 <EditText
-                    android:id="@+id/editTextPassword"
+                    android:id="@+id/editTextPassword_reg"
                     style="@style/modifiedEditText"
                     android:hint="@string/login_password_hint"
                     android:inputType="textPassword"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                style="@style/viewParent"
-                android:layout_gravity="end"
-                android:layout_marginTop="10dp"
-                android:text="Forgot Password?"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="@dimen/newsMoreTextSize" />
 
             <!--            <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton-->
             <!--                android:id="@+id/cirLoginButton"-->
@@ -88,12 +80,12 @@
             <!--                app:initialCornerAngle="27dp"/>-->
 
             <com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
-                android:id="@+id/cirLoginButton"
+                android:id="@+id/cirLoginReg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/loginViewsMargin"
-                android:text="Login"
+                android:text="Register"
                 app:initialCornerAngle="27dp"
                 app:spinning_bar_color="#FFF"
                 app:spinning_bar_padding="6dp"
@@ -102,10 +94,10 @@
 
             <TextView
                 style="@style/parent"
-                android:id="@+id/textview_registerNow"
+                android:id="@+id/textview_haveaccout"
                 android:layout_marginTop="@dimen/loginViewsMargin"
                 android:onClick="onLoginClick"
-                android:text="New user? Register Now"
+                android:text="Already have a account? Login Now"
                 android:textAlignment="center"
                 android:textColor="@color/themeColor"
                 android:textSize="17sp"
@@ -142,23 +134,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_facebook" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:src="@drawable/ic_google_plus" />
-            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
